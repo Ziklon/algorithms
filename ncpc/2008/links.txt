@@ -1,0 +1,5 @@
+avenue
+http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2591
+
+compression
+http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2592

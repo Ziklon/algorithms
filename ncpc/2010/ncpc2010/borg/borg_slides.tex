@@ -1,0 +1,12 @@
+\renewcommand{\insertshortauthor}{Jon Marius Venstad}
+\begin{frame}{C - Borg Boogie}
+
+\begin{block}{Solution}
+  \begin{itemize}
+	\item Initial probability of the sentry being in a certain node is proportional to that node's degree.
+	\item When the captain walks into a room, his chances of success are reduced by the probability of meeting the sentry in or into that room, and (assuming success) the probability of the sentry being in that room is reset to $0$. (The probability of the sentry being in the captain's previous room is also reduced by the probability that they meet on the way.) 
+	\item Then propagate the probability distribution for the borg, and repeat until the captain is back on his Galaxy class cruiser. 
+  \end{itemize}
+\end{block}
+
+\end{frame}

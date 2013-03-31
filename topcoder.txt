@@ -1,0 +1,61 @@
+srm 430,416 div2 1000 dp bitwise
+y la srm 448 div2 1000 dp bitiwise en la q hamlet dejo el div2.. haciendose las 3
+srm 321 div2 1000 dp
+srm 437 div2 500 DP para q no se te olvide el DP
+tch srm 6 div1 - 1000 dp contar 
+TCHS07 alpha round 2 div1
+*1000
+
+weno cachorro srm 208 div2 600.. te ayudara mucho mas el link 
+http://www.topcoder.com/tc?module=Static&d1=features&d2=010408
+
+div 2 - 378
+
+162
+
+PASS.magiccen 
+http://acm.tju.edu.cn/toj/showp2231.html yala :)
+
+156
+
+316
+
+292
+
+
+403 div2 
+250.. para q te baciles ..
+500 apliques .. lo q te dije del DFS sin visited[] 
+1000 apliques DP de monedas siendo las monedas lo q generas en el DFS -> 
+para luego hacer una reconstruccion del DP
+srm 418 div2 500 hamlet se la hizo en plomo con 309
+
+http://acm.tju.edu.cn/toj/showp2637.html practice BFS yala :)
+
+TCHS SRM 53 div 1
+
+374 geo nice
+
+http://acm.tju.edu.cn/toj/showp1961.html dp mas recon
+http://acm.tju.edu.cn/toj/showp1959.html dfs yala :)
+http://acm.tju.edu.cn/toj/showp2773.html dfs  yala :)
+http://acm.tju.edu.cn/toj/showp1375.html ones romperla
+(a*b)%k=( (a%k)*( b%k) )%k
+(a+b)%k=( (a%k)+( b%k) )%k
+http://acm.tju.edu.cn/toj/showp2821.html bitwise yala :)
+
+http://acm.tju.edu.cn/toj/showp2040.html ad...
+
+srm 221 div2 1100 .. bfs+ greedy
+395 div2 1000
+srm 169 div2 1000-> bitiwise facil
+
+http://pc2train.inf.pucp.edu.pe/placar/placar/contest.html
+
+div 2 366
+div 2 265
+div 2 411
+
+http://acm.tju.edu.cn/toj/showp1464.html
+
+me quede en 249

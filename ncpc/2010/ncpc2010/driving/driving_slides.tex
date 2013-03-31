@@ -1,0 +1,12 @@
+\renewcommand{\insertshortauthor}{Jon Marius Venstad}
+\begin{frame}{D - Dirty Driving}
+
+\begin{block}{Solution}
+  \begin{itemize}
+	\item Sort the distances to those cars, to easily find the number of cars between you and some other car (by just looking at its index in the sorted array).
+	\item Let $S$ be the sorted array of length $n$, and find $M = \textrm{max}\{p(i+1) - S_i : i \in [0, n-1]\}$. 
+	\item This is what you should modify your distance to the queue with, so after this modification your (correct) distance to the next car is $M + S_0$
+  \end{itemize}
+\end{block}
+
+\end{frame}

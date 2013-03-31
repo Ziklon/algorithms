@@ -1,0 +1,13 @@
+\renewcommand{\insertshortauthor}{Jon Marius Venstad}
+\begin{frame}{K - Around the track}
+
+\begin{block}{Solution}
+  \begin{itemize}
+	\item For each node with four edges there are three connection alternatives, two of which you can always choose between. Sort these nodes in descending order based on the difference between the two best alternatives. 
+	\item Use a DisjointSet over the edges to keep track of components of the circuit, by taking the union whenever two edges are connected. Connecting two edges with the same representative will cause a cycle, and can only be done in the last node.
+	\item Pick first the nodes with only two edges, and then the nodes with four edges, in the order found by the sorting. Choose the best available alternative for each of these.
+	\item If you still have disjoint circuits after all nodes have been processed, look at the nodes where these circuits intersect (again in order) and join the circuits by changing connection alternatives. 
+  \end{itemize}
+\end{block}
+
+\end{frame}

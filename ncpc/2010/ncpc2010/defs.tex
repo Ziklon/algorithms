@@ -1,0 +1,103 @@
+\documentclass[a4paper,12pt,english,twoside]{article}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{verbatim}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{anysize}
+
+% Page setup
+%          left  right  top  bottom
+%\marginsize{2.5cm}{2.5cm}{2.0cm}{2.0cm}
+
+\pagestyle{myheadings}
+\newcommand{\makeemptypage}{~\thispagestyle{empty} 
+  \vfill\centerline{\Huge Almost blank page}\vfill ~\clearpage}
+\renewcommand{\cleardoublepage}{\clearpage
+  \ifodd\value{page}\else\makeemptypage\fi}
+
+\newcounter{probnum}
+
+\newcommand{\Problem}[2]{\cleardoublepage
+  \refstepcounter{probnum}
+  \setcounter{samplenum}{0}
+  \addtocontents{toc}{\Alph{probnum} & #1 \\}%
+  \markboth{NCPC 2010 Problem~\Alph{probnum}: #1}{NCPC 2010 Problem~\Alph{probnum}: #1}
+  \begin{center}
+    \LARGE \textbf{Problem~\Alph{probnum}}\\[6mm]
+    \huge #1\\[1cm]
+  \end{center}
+}
+
+\newcommand{\Solution}[3]{
+  \refstepcounter{probnum}
+  \markboth{NCPC 2010 Solution Sketches~\Alph{probnum}: #1}{NCPC 2010 Problem~\Alph{probnum}: #1}
+  \begin{center}
+    \LARGE \textbf{Problem ~\Alph{probnum}}\\[6mm]
+    \huge #1\\[6mm]
+    \Large Problem author: #3\\[10mm]
+  \end{center}
+}
+
+
+\newcommand{\Input}{\subsection*{Input specifications}}
+\newcommand{\Output}{\subsection*{Output specifications}}
+
+% Sample data definitions
+
+\newcounter{samplenum}
+\newcommand{\sampleid}{\arabic{samplenum}}
+
+\newcommand{\Sample}[1]{
+  \refstepcounter{samplenum}
+  \subsection*{Sample input \sampleid}
+  \verbatiminput{#1/#1.inex}
+  \subsection*{Output for sample input \sampleid}
+  \verbatiminput{#1/#1.outex}
+}
+
+\newcommand{\Xample}[1]{
+  \refstepcounter{samplenum}
+  \vspace{0.4cm}
+  \noindent
+  \begin{tabular}{|l|l|}
+    \hline
+    \textbf{Sample input \sampleid} & \textbf{Sample output \sampleid} \\
+    \hline
+    \parbox[t]{0.45\textwidth}{\vspace{-0.5cm}\verbatiminput{#1.inex}}
+    &
+    \parbox[t]{0.45\textwidth}{\vspace{-0.5cm}\verbatiminput{#1.outex}}
+    \\
+    \hline
+  \end{tabular}
+}
+
+% Old version / Per
+%% \newcommand{\Xample}[1]{
+%%   \refstepcounter{samplenum}
+%%   \vspace{0.4cm}
+%%   \begin{multicols}{2}{
+%%     \subsection*{Sample input \sampleid}
+%%     \verbatiminput{#1/#1.inex}
+%%     \columnbreak
+%%     \subsection*{Output for sample input \sampleid}
+%%     \verbatiminput{#1/#1.outex}
+%%   }
+%%   \end{multicols}
+%% }
+
+%\fvset{fontsize=\small}
+
+%\addtolength{\textheight}{2.5cm}
+%\addtolength{\topmargin}{-2cm}
+
+\pretolerance = 2000
+\tolerance = 4000  \hbadness = \tolerance
+
+
+\newcommand{\incl}[1]{\input{#1/#1}}
+\newcommand{\incls}[1]{\input{#1/#1_sol}}

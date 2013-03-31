@@ -1,0 +1,12 @@
+\renewcommand{\insertshortauthor}{Problem Author: Jimmy M{\aa}rdell}
+\begin{frame}{J - Skyline}
+
+\begin{block}{Solution}
+  \begin{itemize}
+    \item Represent a skyline (zero or more buildings) as a list of line segments. This list is sorted in the horizontal direction. Its area can easily be calculated in linear time by summing the area under each line segment. 
+	\item Merge two such skylines (the total skyline and each new building) in linear time, inserting new vertices where line segments intersect. 
+	\item Add the buildings in the given order, and find the visible area of each new building by comparing the area difference of the skylines with and without the building to the area of the building itself. (If the skyline's area did not increase, no part of the new building was visible.)
+  \end{itemize}
+\end{block}
+
+\end{frame}

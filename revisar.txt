@@ -1,0 +1,55 @@
+2008-ronda E china
+tchs 2009 championship
+srm 397 div2 500
+dp-> srm 352 div1 250
+dp-> project euler 15
+TJU 2493
+TCO round 2 500 
+
+
+srm 312 div1 500 revisala hamletov revisala
+srm 147 div 1 revisar 350
+srm 386 div1 600
+srm 382 div2 1000
+ta incompleta :(
+TJU 1765 LIS
+srm 356 div2 1000 -> union find
+10405 seccion completa esta LCS
+1207-TJU DP juego-simple, 500 div1 343
+KING southamerica code jam (medio), TCO 2008 round 1 500 chomp (dificil)-  TJU 1017 (dificil)   
+srm 172 div1 500  muy bonita// DP juegos
+srm 321 div2 1000 dp - caracteres
+srm 356 div2 250 ejemplo facil de replace
+srm 359 div1 300 DP
+srm 166 div2 500 ejemplo facil bool operator
+srm 187 div2 1000 problema punto interior a cualkier poligono- //bonita
+tch 36 -> cuadrados dp iterativo
+srm 430,416 div2 1000 dp bitwise
+srm248 div2 1000 bitwise easy
+1509 max flow
+srm 374 div1 275 bool orden
+1891 max flow
+srm 287 div2 1000 xevere
+dfs tchs srm 39
+srm 353 div1 500 DP mi primera china DIV1
+2004 TCCC qualification round problem set 4 500 // 
+srm 448 div1 250,srm 318div1 500 ,srm 249 div1 250 codejam 2009 clasification 1day problem C   problema "valor esperado" el primero backtracking , el segundo DP
+srm 208 div2 600 exp rapida
+srm 325 div1 500... |x-a0|+|x-a1|..+<=P
+srm 221 div1 500 next_permutati
+dfs y binary search srm269 500 div1
+tchs srm 26 500 recursiva y 1000 DP
+dp for dummies
+srm 366 div2 500
+srm 325 div2 500
+srm 340 div2 500 y div2 1000 reconstruccion
+srm 354 div2 1000
+srm 437 div2 500
+srm 391 div2 1000
+srm 403 div2 1000,469 500 div1 -> reconstruccion
+srm 213 div2 1000-> horas segundo minutos
+srm 341 div1 500 DP+DFS+BFs
+1000 div1 mas monse 343
+
+
+SRM 368 DIV 2 - 900

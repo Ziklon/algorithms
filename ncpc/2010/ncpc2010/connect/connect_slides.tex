@@ -1,0 +1,11 @@
+\renewcommand{\insertshortauthor}{Problem Author: Jimmy M{\aa}rdell}
+\begin{frame}{B - Connect}
+
+\begin{block}{Solution}
+  \begin{itemize}
+    \item For both pairs of points to be connected, try to connect these by two different shortest paths: one preferring horizontal and one preferring vertical moves. For each of these two do a BFS to connect the other pair of points. Take the minimum over all these combinations. 
+    \item Special case when all four points are on the same row or column. 
+  \end{itemize}
+\end{block}
+
+\end{frame}

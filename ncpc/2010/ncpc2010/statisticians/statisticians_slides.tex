@@ -1,0 +1,27 @@
+\renewcommand{\insertshortauthor}{Problem Author: Fredrik Svensson}
+\begin{frame}{I - Statisticians}
+
+\begin{block}{Solution}
+  \begin{itemize}
+    \item Create an integral image $ii$, i.e. $ii[Y,X] = \sum_{x=0}^{X-1} \sum_{y=0}^{y-1} s[y,x]$.
+    \begin{itemize}
+      \item Cumulative sum of each row.
+      \item Cumulative sum of each resulting column.
+    \end{itemize}
+    \item Find all areas.
+    \begin{itemize}
+      \item $for x,y,w,h$
+      \begin{itemize}
+        \item $area(x,y,w,h) = ii[y+h,x+w]-ii[y+h,x]-ii[y,x+w]+ii[y,x]$
+      \end{itemize}
+    \end{itemize}
+    \item Bucket sort to find median.
+    \begin{itemize}
+      \item $0 <= Statisticians/area <= 10$.
+      \item Precision $10^{-3}$.
+      \item $10000*10^3+1$ buckets.
+    \end{itemize}
+  \end{itemize}
+\end{block}
+
+\end{frame}

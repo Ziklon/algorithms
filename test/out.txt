@@ -1,0 +1,30 @@
+Caso #1: No No No No No No No No No No
+Caso #2: Si Si No No No No No Si Si Si No Si No Si No No No No No
+Caso #3: No No No No No No No No No Si No No No No No
+Caso #4: No No No No No No No No Si No No No No No No Si
+Caso #5: No No No No No No No No No No No No No
+Caso #6: No No No No No No No Si No No No No No No No No No No No No
+Caso #7: Si No No No No No No No No No No No No No No No
+Caso #8: No No Si No No No No No No No Si No No No No Si
+Caso #9: No No Si No No Si No Si No Si No No No No No No No No
+Caso #10: No No No No No No No No No Si No
+Caso #11: No No No No No No No No No No No No No No No
+Caso #12: No No No No No No No No No No No No No No No No No No No No
+Caso #13: No No No No No No No No No No No Si No No
+Caso #14: No No No No No No No No No No Si No
+Caso #15: No No No No No No No No No No No No No No No No No No
+Caso #16: No No No No No No No No No No No No No No No
+Caso #17: No No No No No No No No No No No No No No No No No No
+Caso #18: No No No No No No No No No No No No No No No No No No
+Caso #19: No No No No No No No No No No No No Si No No No No No No No
+Caso #20: No No No No No No No No No No No No No No No No No No
+Caso #21: No No No No No No No No No No No No No No No No No
+Caso #22: No No No No No No No No No No
+Caso #23: No No No No No No No No No No No No No No No No No No No No
+Caso #24: No Si No No No No No No No No No No Si No No No
+Caso #25: No No No No No No No No No No No
+Caso #26: No No No No No No No No No No No No No Si No
+Caso #27: No No No No No No No No No No No No No
+Caso #28: No No Si Si No No Si No No Si Si
+Caso #29: No No No No No No No No No No No No No
+Caso #30: Si No No No No No No No No No No No

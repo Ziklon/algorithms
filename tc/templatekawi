@@ -1,0 +1,22 @@
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cmath> 
+#include <set>
+#include <map>
+#include <queue>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <sstream>
+#include <ctime> 
+using namespace std; 
+typedef long long ll;
+
+class <%:class-name%> {
+public:
+	<%:return-type%> <%:method-name%>(<%:param-list%>) {
+		<%:set-caret%>
+	}
+};
+<%:testing-code%>

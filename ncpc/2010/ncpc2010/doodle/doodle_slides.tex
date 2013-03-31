@@ -1,0 +1,12 @@
+\renewcommand{\insertshortauthor}{Pehr S\"oderman}
+\begin{frame}{E - Doodling}
+
+\begin{block}{Solution}
+  \begin{itemize}
+    \item Repeatedly mirroring the grid on its lower row and rightmost column, reveals that the number of squares you fill out before you fill out a new corner is the LCM of $h-1$ and $w-1$ (let this be $L$), plus $1$ for the new corner. The pattern will run between top and bottom $\frac{L}{h-1}$ times, and between left and right $\frac{L}{w-1}$ times.
+    \item Some squares will be counted twice in this way. Each sequence from the left to the right edge intersects each sequence from the upper to the lower edge exactly once, except when these sequences are overlapping. This is is case for each of the edge points, of which there are $\frac{L}{h-1}+\frac{l}{w-1}-1$. Also, everything is counted twice in this way, as the two kinds of sequences are made up of the same squares.
+    \item The final result is $L + 1 - \frac{1}{2}\left(\frac{L}{h-1} - 1\right) \left(\frac{L}{w-1} - 1\right)$.
+  \end{itemize}
+\end{block}
+
+\end{frame}

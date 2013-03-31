@@ -1,0 +1,12 @@
+\renewcommand{\insertshortauthor}{Problem Author: Jimmy M{\aa}rdell}
+\begin{frame}{A - Succession}
+
+\begin{block}{Solution}
+  \begin{itemize}
+    \item Create a map of family relations, where children map to their parents.
+	\item Use another map where each person (in the end) maps to their blood contents. Add only the founder, with blood content $2^{50}$L.
+	\item Do a DFS on each of the claimants to find their blood contents. If a parent is not in the family relations map, the blood content of that parent is 0. Otherwise, calculate the parent's blood content (recursively) and use the result to calculate the child's content. 
+  \end{itemize}
+\end{block}
+
+\end{frame}

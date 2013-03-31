@@ -1,0 +1,16 @@
+\renewcommand{\insertshortauthor}{Jon Marius Venstad}
+\begin{frame}{G - Great Geek Game-show 3000!}
+
+\begin{block}{Solution}
+  \begin{itemize}
+	\item Everyone wins if there are no cycles of length greater than $K$ among the $N$ boxes. Let $P_n^k$ denote this probability. Obviously $P_n^k = 1$ when $k \geq n$. To find the probabilities when $k < n$ do the following reasoning:
+	\item Open one of the remaining boxes and check the length of the cycle this box is in. With $n$ remaining boxes the probability of this cycle having a length of $m \in [1,n]$ telescopes to $\frac{1}{n}$ by simply opening boxes until the cycle is complete. 
+	\item Thus we get $P_n^k = \frac{1}{n}\sum_{i=1}^{k}P_{n-i}^k$. By letting $S_n^k$ be this sum (without the $\frac{1}{n}$ constant), we can calculate each $P_n^k$ and $S_n^k$ in constant time:
+	\begin{itemize}
+		\item $P_n^k = \frac{S_n^k}{n}$
+		\item $S_{n+1}^k = S_n^k + P_n^k - P_{n-k+1}^k$
+	\end{itemize}
+  \end{itemize}
+\end{block}
+
+\end{frame}

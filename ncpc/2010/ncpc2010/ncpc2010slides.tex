@@ -1,0 +1,65 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[screen]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+%\usepackage{graphicx}
+%\usepackage{wrapfig}
+%\usepackage{tikz}
+%\usetikzlibrary{arrows}
+%\usetikzlibrary{snakes}
+
+\usetheme{Copenhagen}
+
+\title[NCPC 2010 solutions]{NCPC 2009\\Presentation of solutions}
+% Keep all names on front page to save space?
+\author[]{Head of Jury: Jon Marius Venstad\\co-Heads of Jury: Fredrik Svensson and Jimmy M{\aa}rdell}
+\institute[]{}
+\date{2010-10-02} 
+
+
+\begin{document}
+
+
+\renewcommand{\insertshortauthor}{}
+\titlepage
+
+\renewcommand{\insertshortauthor}{}
+\begin{frame}{NCPC Jury}
+%  \begin{block}{Head of Jury}
+%    \begin{itemize}
+%      \item Jon Marius Venstad (NTNU)
+%      \item Fredrik Svensson (XXX)
+%    \end{itemize}
+%  \end{block}
+  \begin{block}{Problem authors}
+    \begin{itemize}
+      \item Andreas Bj\"orklund (ARM)
+      \item Jimmy M{\aa}rdell (Silobreaker)
+      \item Jon Marius Venstad (NTNU)
+      \item Pehr S\"oderman (KTH)
+      \item Fredrik Svensson (LiU)
+      \item Christian Jonassen (NTNU)
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\newcommand{\slid}[1]{\input{#1/#1_slides.tex}}
+
+
+%\slid{knight}       	% E+
+
+\slid{succession}		% E
+\slid{connect}			% M/H
+\slid{borg}				% M/H
+\slid{driving}			% E
+\slid{doodle}			% E/M
+\slid{add-help}			% E-
+\slid{gameshow}			% H-
+\slid{polyomino}		% M+
+\slid{statisticians}	% M
+\slid{skyline}			% M
+\slid{roundtrip}		% H+
+
+
+\end{document}

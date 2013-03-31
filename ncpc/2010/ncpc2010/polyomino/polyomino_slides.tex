@@ -1,0 +1,16 @@
+\renewcommand{\insertshortauthor}{Andreas Bj\"orklund}
+\begin{frame}{H - Polymino Powers}
+
+\begin{block}{Solution}
+  \begin{itemize}
+	\item Try all possible positionings of $2$ to $5$ pieces relative to the first piece.
+	\item For each relative positioning, try building the pieces in parallel using a DFS. This DFS does not need to backtrack! Doing so will cause a timeout. 
+	\item Either of:
+	\begin{itemize}
+		\item Keep first piece fixed at first possible location.
+		\item Prune away positionings which prove to be impossible already before all pieces are placed.
+	\end{itemize}
+  \end{itemize}
+\end{block}
+
+\end{frame}

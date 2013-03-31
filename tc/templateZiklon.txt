@@ -1,0 +1,18 @@
+import java.util.*;
+import java.util.regex.*;
+import java.text.*;
+import java.math.*;
+import java.awt.geom.*;
+import static java.lang.Math.*;
+import static java.util.Arrays.*;
+import static java.lang.Integer.*;
+import static java.lang.Double.*;
+import static java.util.Collections.*;
+
+public class <%:class-name%>{
+	public <%:return-type%> <%:method-name%>(<%:param-list%>){
+		<%:set-caret%>
+	}
+	//Powered by [Ziklon]
+	<%:testing-code%>
+}
