@@ -28,8 +28,7 @@ class QuickSums {
 public:int minSums(string numbers, int sum) {	
 		int ans=1<<20;
 		int N=numbers.sz;
-		int M=N-1;
-		
+		int M=N-1;		
 		
 		REP(mask,1<<(M)){
 			int from=0;
