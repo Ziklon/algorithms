@@ -16,34 +16,39 @@
 #define adebug(x,n) cout <<#x<<endl; REP(i,n)cout<<x[i]<<char(i+1==n?10:32)
 #define mdebug(x,m,n) cout <<#x<<endl; REP(i,m)REP(j,n)cout<<x[i][j]<<char(j+1==n?10:32)
 using namespace std;
+#define MOD 10000000000000LL
+int dx[8]={0,0,1,-1,1,-1,1,-1};
+int dy[8]={1,-1,0,0,1,-1,-1,1};
+long long dp[51][4][4];
 
-int dp[1<<12],N,idx;
-vector<int> v;
-int go(int mask){
-	if(__builtin_popcount(mask)==N)return 1;
-	int& ref=dp[mask];
+long long go(int idx, int x, int y, string& s, vector<string>& v){
+	
+	if(idx>=s.sz)return 1;
+	long long& ref=dp[idx][x][y];
 	if(ref!=-1)return ref;
 	ref=0;	
-	if((mask&(1<<idx))==0){
-		//can put idx?
-		bool can=1;
-		REP(i,N)if((mask&(1<<i))>0 && v[i]>=v[idx])can=0;
-		if(can==0)return ref;
-	}	
-	REP(i,N)if((mask&(1<<i))==0)ref+=go(mask|1<<i);
-	return ref;		
-	
+	REP(i,8){
+		int X=x+dx[i];
+		int Y=y+dy[i];
+		if(min(X,Y)>=0 && max(X,Y)<4 && s[idx]==v[X][Y])
+			ref=(ref+go(idx+1,X,Y,s,v))%MOD;
+	}
+	return ref;	
 }
-
-class BagOfHolding {
-public:double oddsReachable(vector <int> sizes, int item) {	
-		double ans=1;
-		N=sizes.size();
-		v=sizes;
-		idx=item;
-		memset(dp,-1,sizeof dp);
-		for(int i=2;i<=N;i++)ans*=i;
-		ans=go(0)/ans;	
+class BoggleScore {
+public:long long bestScore(vector <string> grid, vector <string> words) {	
+		long long ans=0;
+		REP(i,words.sz){
+			memset(dp,-1,sizeof dp);
+			long long can=0;
+			REP(j,4)REP(k,4)if(words[i][0]==grid[j][k]){
+				can+=go(1,j,k,words[i],grid);
+			}
+			can%=MOD;
+			if(can)ans+=(words[i].sz*words[i].sz*can);			
+			ans%=MOD;
+			//cout<<i<<" "<<can<<endl;
+		}		
 		return ans;		
 	}
 };
@@ -53,21 +58,28 @@ public:double oddsReachable(vector <int> sizes, int item) {
 #include <string>
 #include <vector>
 using namespace std;
-bool KawigiEdit_RunTest(int testNum, vector <int> p0, int p1, bool hasAnswer, double p2) {
+bool KawigiEdit_RunTest(int testNum, vector <string> p0, vector <string> p1, bool hasAnswer, long long p2) {
 	cout << "Test " << testNum << ": [" << "{";
 	for (int i = 0; int(p0.size()) > i; ++i) {
 		if (i > 0) {
 			cout << ",";
 		}
-		cout << p0[i];
+		cout << "\"" << p0[i] << "\"";
 	}
-	cout << "}" << "," << p1;
+	cout << "}" << "," << "{";
+	for (int i = 0; int(p1.size()) > i; ++i) {
+		if (i > 0) {
+			cout << ",";
+		}
+		cout << "\"" << p1[i] << "\"";
+	}
+	cout << "}";
 	cout << "]" << endl;
-	BagOfHolding *obj;
-	double answer;
-	obj = new BagOfHolding();
+	BoggleScore *obj;
+	long long answer;
+	obj = new BoggleScore();
 	clock_t startTime = clock();
-	answer = obj->oddsReachable(p0, p1);
+	answer = obj->bestScore(p0, p1);
 	clock_t endTime = clock();
 	delete obj;
 	bool res;
@@ -80,7 +92,7 @@ bool KawigiEdit_RunTest(int testNum, vector <int> p0, int p1, bool hasAnswer, do
 	cout << "Your answer:" << endl;
 	cout << "\t" << answer << endl;
 	if (hasAnswer) {
-		res = answer == answer && fabs(p2 - answer) <= 1e-9 * max(1.0, fabs(p2));
+		res = answer == p2;
 	}
 	if (!res) {
 		cout << "DOESN'T MATCH!!!!" << endl;
@@ -99,47 +111,62 @@ int main() {
 	bool all_right;
 	all_right = true;
 	
-	vector <int> p0;
-	int p1;
-	double p2;
+	vector <string> p0;
+	vector <string> p1;
+	long long p2;
 	
 	{
 	// ----- test 0 -----
-	int t0[] = {1,2,3};
+	string t0[] = {"XXEY","XXXX","XXXX","XXXX"};
 			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
-	p1 = 1;
-	p2 = 0.5;
+	string t1[] = {"EYE"};
+			p1.assign(t1, t1 + sizeof(t1) / sizeof(t1[0]));
+	p2 = 9ll;
 	all_right = KawigiEdit_RunTest(0, p0, p1, true, p2) && all_right;
 	// ------------------
 	}
 	
 	{
 	// ----- test 1 -----
-	int t0[] = {1,2,3};
+	string t0[] = {"XEYE","XXXX","XXXX","XXXX"};
 			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
-	p1 = 2;
-	p2 = 1.0;
+	string t1[] = {"EYE"};
+			p1.assign(t1, t1 + sizeof(t1) / sizeof(t1[0]));
+	p2 = 36ll;
 	all_right = KawigiEdit_RunTest(1, p0, p1, true, p2) && all_right;
 	// ------------------
 	}
 	
 	{
 	// ----- test 2 -----
-	int t0[] = {1,1,2,3};
+	string t0[] = {"TEXX","REXX","XXXX","XXXX"};
 			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
-	p1 = 2;
-	p2 = 0.5;
+	string t1[] = {"TREE"};
+			p1.assign(t1, t1 + sizeof(t1) / sizeof(t1[0]));
+	p2 = 32ll;
 	all_right = KawigiEdit_RunTest(2, p0, p1, true, p2) && all_right;
 	// ------------------
 	}
 	
 	{
 	// ----- test 3 -----
-	int t0[] = {1,2,3,4,5,6,7,8,9,10};
+	string t0[] = {"XXXX","XSAX","XDNX","XXXX"};
 			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
-	p1 = 4;
-	p2 = 0.16666666666666666;
+	string t1[] = {"SANDS","SAND","SAD","AND"};
+			p1.assign(t1, t1 + sizeof(t1) / sizeof(t1[0]));
+	p2 = 59ll;
 	all_right = KawigiEdit_RunTest(3, p0, p1, true, p2) && all_right;
+	// ------------------
+	}
+	
+	{
+	// ----- test 4 -----
+	string t0[] = {"TREX","XXXX","XXXX","XXXX"};
+			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
+	string t1[] = {"TREE"};
+			p1.assign(t1, t1 + sizeof(t1) / sizeof(t1[0]));
+	p2 = 0ll;
+	all_right = KawigiEdit_RunTest(4, p0, p1, true, p2) && all_right;
 	// ------------------
 	}
 	

@@ -16,34 +16,24 @@
 #define adebug(x,n) cout <<#x<<endl; REP(i,n)cout<<x[i]<<char(i+1==n?10:32)
 #define mdebug(x,m,n) cout <<#x<<endl; REP(i,m)REP(j,n)cout<<x[i][j]<<char(j+1==n?10:32)
 using namespace std;
-
-int dp[1<<12],N,idx;
-vector<int> v;
-int go(int mask){
-	if(__builtin_popcount(mask)==N)return 1;
-	int& ref=dp[mask];
+typedef long long ll;
+ll dp[55][3];
+ll go(int idx, int who){
+	if(idx==0)return 1LL;
+	ll& ref=dp[idx][who];
 	if(ref!=-1)return ref;
-	ref=0;	
-	if((mask&(1<<idx))==0){
-		//can put idx?
-		bool can=1;
-		REP(i,N)if((mask&(1<<i))>0 && v[i]>=v[idx])can=0;
-		if(can==0)return ref;
-	}	
-	REP(i,N)if((mask&(1<<i))==0)ref+=go(mask|1<<i);
-	return ref;		
-	
+	ref=0;
+	if(who==0)ref+=go(idx-1,2)+go(idx-1,0);
+	else ref+=go(idx-1,0)+go(idx-1,1)+go(idx-1,2);
+	return ref;	
 }
 
-class BagOfHolding {
-public:double oddsReachable(vector <int> sizes, int item) {	
-		double ans=1;
-		N=sizes.size();
-		v=sizes;
-		idx=item;
+class BadSubstring {
+public:long long howMany(int length) {	
+		long long ans;
+		if(length==0)return 1;
 		memset(dp,-1,sizeof dp);
-		for(int i=2;i<=N;i++)ans*=i;
-		ans=go(0)/ans;	
+		ans=go(length-1,0)+go(length-1,1)+go(length-1,2);				
 		return ans;		
 	}
 };
@@ -53,21 +43,14 @@ public:double oddsReachable(vector <int> sizes, int item) {
 #include <string>
 #include <vector>
 using namespace std;
-bool KawigiEdit_RunTest(int testNum, vector <int> p0, int p1, bool hasAnswer, double p2) {
-	cout << "Test " << testNum << ": [" << "{";
-	for (int i = 0; int(p0.size()) > i; ++i) {
-		if (i > 0) {
-			cout << ",";
-		}
-		cout << p0[i];
-	}
-	cout << "}" << "," << p1;
+bool KawigiEdit_RunTest(int testNum, int p0, bool hasAnswer, long long p1) {
+	cout << "Test " << testNum << ": [" << p0;
 	cout << "]" << endl;
-	BagOfHolding *obj;
-	double answer;
-	obj = new BagOfHolding();
+	BadSubstring *obj;
+	long long answer;
+	obj = new BadSubstring();
 	clock_t startTime = clock();
-	answer = obj->oddsReachable(p0, p1);
+	answer = obj->howMany(p0);
 	clock_t endTime = clock();
 	delete obj;
 	bool res;
@@ -75,12 +58,12 @@ bool KawigiEdit_RunTest(int testNum, vector <int> p0, int p1, bool hasAnswer, do
 	cout << "Time: " << double(endTime - startTime) / CLOCKS_PER_SEC << " seconds" << endl;
 	if (hasAnswer) {
 		cout << "Desired answer:" << endl;
-		cout << "\t" << p2 << endl;
+		cout << "\t" << p1 << endl;
 	}
 	cout << "Your answer:" << endl;
 	cout << "\t" << answer << endl;
 	if (hasAnswer) {
-		res = answer == answer && fabs(p2 - answer) <= 1e-9 * max(1.0, fabs(p2));
+		res = answer == p1;
 	}
 	if (!res) {
 		cout << "DOESN'T MATCH!!!!" << endl;
@@ -99,47 +82,30 @@ int main() {
 	bool all_right;
 	all_right = true;
 	
-	vector <int> p0;
-	int p1;
-	double p2;
+	int p0;
+	long long p1;
 	
 	{
 	// ----- test 0 -----
-	int t0[] = {1,2,3};
-			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
-	p1 = 1;
-	p2 = 0.5;
-	all_right = KawigiEdit_RunTest(0, p0, p1, true, p2) && all_right;
+	p0 = 0;
+	p1 = 1ll;
+	all_right = KawigiEdit_RunTest(0, p0, true, p1) && all_right;
 	// ------------------
 	}
 	
 	{
 	// ----- test 1 -----
-	int t0[] = {1,2,3};
-			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
-	p1 = 2;
-	p2 = 1.0;
-	all_right = KawigiEdit_RunTest(1, p0, p1, true, p2) && all_right;
+	p0 = 3;
+	p1 = 21ll;
+	all_right = KawigiEdit_RunTest(1, p0, true, p1) && all_right;
 	// ------------------
 	}
 	
 	{
 	// ----- test 2 -----
-	int t0[] = {1,1,2,3};
-			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
-	p1 = 2;
-	p2 = 0.5;
-	all_right = KawigiEdit_RunTest(2, p0, p1, true, p2) && all_right;
-	// ------------------
-	}
-	
-	{
-	// ----- test 3 -----
-	int t0[] = {1,2,3,4,5,6,7,8,9,10};
-			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
-	p1 = 4;
-	p2 = 0.16666666666666666;
-	all_right = KawigiEdit_RunTest(3, p0, p1, true, p2) && all_right;
+	p0 = 29;
+	p1 = 1548008755920ll;
+	all_right = KawigiEdit_RunTest(2, p0, true, p1) && all_right;
 	// ------------------
 	}
 	
