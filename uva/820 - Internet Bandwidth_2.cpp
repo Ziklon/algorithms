@@ -8,28 +8,34 @@
 #include <queue>
 
 using namespace std;
+#define INF 1<<20
 
-struct flow_graph{    
+struct flow_graph{
+        
     int MAX_V,E,M,source,sink;
-    int *adj, *cap, *last, *next;                
+    int *adj, *cap, *last, *next;
+    bool *seen;
     flow_graph(){}
+    
     flow_graph(int _V,int MAX_E){
         MAX_V=_V;
-        adj=new int[2*MAX_E];next=new int[2*MAX_E];cap=new int[2*MAX_E];
-        last=new int[2*MAX_E];
-                            
+        adj=new int[2*MAX_E]; next=new int[2*MAX_E]; cap=new int[2*MAX_E];
+        seen= new bool[MAX_V];
+        last=new int[MAX_V];                                    
     }
     void clear(){
-        memset(last,-1,sizeof last);
+        fill(last,last+MAX_V,-1);
         E=0;        
     }
     void add_edge(int u, int v, int uv, int vu=0){
         adj[E]=v;cap[E]=uv;next[E]=last[u];last[u]=E++;
         adj[E]=u;cap[E]=vu;next[E]=last[v];last[v]=E++;                      
-    }        
+    }         
     int dfs(int u, int flow){
-        if(u==sink)return flow;
-        for(int& e=last[e];e !=-1;e=next[e]){
+        if(u==sink || flow<=0)return flow;
+        if(seen[u])return 0;
+        seen[u]=1;        
+        for(int e=last[u];e!=-1;e=next[e]){
             if(cap[e]>0){
                 int ret=dfs(adj[e],min(flow,cap[e]));
                 if(ret>0){
@@ -43,10 +49,11 @@ struct flow_graph{
     }    
     int max_flow(int s, int t){
         sink=t;source=s;
-        int flow=0;
+        int flow=0;        
         while(1){
-            int tmp=dfs(source,1<<20);
-            if(tmp==0)break;
+            fill(seen,seen+MAX_V,0);
+            int tmp=dfs(source,INF);
+            if(tmp<=0)break;
             flow+=tmp;
         }
         return flow;
@@ -62,10 +69,9 @@ int main(){
    while(scanf("%d",&N)==1 && N){
         scanf("%d %d %d",&s,&t,&c);s--;t--;
         G.clear();
-         
         for(int i=0;i<c;i++){
             scanf("%d %d %d",&a,&b,&k);a--;b--;
-            G.add_edge(a,b,k,k);    
+            G.add_edge(a,b,k,k);                
         }
         printf("Network %d\n",Z++);
         ans=G.max_flow(s,t);
