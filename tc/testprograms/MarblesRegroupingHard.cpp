@@ -1,29 +1,57 @@
-#include <cmath>
-#include <ctime>
-#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cmath> 
+#include <set>
+#include <map>
+#include <queue>
 #include <vector>
 #include <sstream>
-#include <cstring>
-#include <algorithm>
-#include <map>
-#include <set>
-
-using namespace std;
-
+#include <iostream>
+#include <algorithm> 
+using namespace std; 
 #define REP(i,n) for (int i = 0; i < (int)n; i++)
 #define FOR(i, a, b) for (int i = a; i <= b; i++)
-#define RESET(c,v) memset(c, v, sizeof(c))
-#define FOREACH(i,c) for (typeof((c).end()) i = (c).begin(); i != (c).end(); ++i)
-
 typedef long long ll;
+int N,M;
+vector<vector<int> > G;
+vector<int>S;
+int dp[50][1<<14];
 
+int go(int k, int mask){
+	if(k>=N){
+		if(__builtin_popcount(mask)==M)return 0;
+		return 1<<20;
+	}
+	int& ref=dp[k][mask];
+	if(ref!=-1)return ref;
+	ref=go(k+1,mask)+S[k];
+	REP(i,M){
+		if(mask&(1<<i))continue;
+		ref=min(ref,go(k+1,mask|(1<<i))+S[k]-G[k][i]);
+	}		
+	return ref;
+}
+
+
+ 
 struct MarblesRegroupingHard {
    int minMoves( vector <string> boxes ) {
-        int ans=1<<30;
-		
-		return ans;
+		N=boxes.size();
+		G.resize(N);		
+		REP(i,N){
+			istringstream is(boxes[i]);
+			int tmp;
+			int sum=0;
+			while(is>>tmp)G[i].push_back(tmp),sum+=tmp;
+			S.push_back(sum);
+		}
+		M=G[0].size();	
+		memset(dp,-1,sizeof dp);
+		return go(0,0);	
    }
 };
+
 // BEGIN CUT HERE
 #include <ctime>
 #include <cmath>
@@ -46,7 +74,7 @@ int main(int argc, char* argv[])
 			if (exitCode)
 				cout << "#" << i << ": Runtime Error" << endl;
 		}
-		int T = time(NULL)-1356566326;
+		int T = time(NULL)-1357778465;
 		double PT = T/60.0, TT = 75.0;
 		cout.setf(ios::fixed,ios::floatfield);
 		cout.precision(2);

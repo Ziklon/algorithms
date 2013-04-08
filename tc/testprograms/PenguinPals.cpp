@@ -7,38 +7,38 @@
 #include <queue>
 #include <vector>
 #include <iostream>
-#include <algorithm>
-#include <sstream> 
+#include <algorithm> 
 using namespace std; 
 #define REP(i,n) for (int i = 0; i < (int)n; i++)
 #define FOR(i, a, b) for (int i = a; i <= b; i++)
 typedef long long ll;
+int dp[55][55];
+string cad;
+int n;
+int go(int x, int y){
+	if(x>=y)return 0;
+	int& ref=dp[x][y];	
+	if(ref!=-1)return ref;
+	ref=0;
+	for(int i=x;i<=y;i++){
+		for(int j=i+1;j<=y;j++){
+			if(cad[i]==cad[j]){
+				int res=go(i+1,j-1)+go(j+1,y-1)+1;
+				ref=max(ref,res);
+			}
+		}
+	}
+	return ref;
+}
 
-struct TheSquareRootDilemma {
-   int countPairs( int N, int M ) {
+struct PenguinPals {
+   int findMaximumMatching( string colors ) {
 		
-		int ans=0;
-		set<pair<int,int> >S;
-		for(int i=1;i<=N;i++)for(int j=1;j<=M;j++){
-			int aa=sqrt(i*j);
-			if(aa*aa==(i*j)){
-				S.insert(make_pair(i,j));
-			}
-		}
+		n=colors.size();
+		cad=colors;
+		memset(dp,-1,sizeof dp);
 		
-		
-		for(ll i=1;i*i<=100000000000LL;i++){
-			int ii=i*i;	
-			for(int j=1;j*j<=ii;j++){
-				if(ii%j==0){
-					int b=ii/j;
-					int mini=min(b,j);
-					int maxi=max(b,j);
-					if(mini<=M && maxi<=N)
-						ans++;
-				}
-			}
-		}
+		int ans=go(0,n-1);
 		return ans;
    }
 };
@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 {
 	if (argc == 1) 
 	{
-		cout << "Testing TheSquareRootDilemma (500.0 points)" << endl << endl;
+		cout << "Testing PenguinPals (500.0 points)" << endl << endl;
 		for (int i = 0; i < 20; i++)
 		{
 			ostringstream s; s << argv[0] << " " << i;
@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
 			if (exitCode)
 				cout << "#" << i << ": Runtime Error" << endl;
 		}
-		int T = time(NULL)-1358771427;
+		int T = time(NULL)-1358024327;
 		double PT = T/60.0, TT = 75.0;
 		cout.setf(ios::fixed,ios::floatfield);
 		cout.precision(2);
@@ -76,60 +76,76 @@ int main(int argc, char* argv[])
 	else
 	{
 		int _tc; istringstream(argv[1]) >> _tc;
-		TheSquareRootDilemma _obj;
+		PenguinPals _obj;
 		int _expected, _received;
 		time_t _start = clock();
 		switch (_tc)
 		{
 			case 0:
 			{
-				int N = 2;
-				int M = 2;
-				_expected = 2;
-				_received = _obj.countPairs(N, M); break;
+				string colors = "RRBRBRBB";
+				_expected = 3;
+				_received = _obj.findMaximumMatching(colors); break;
 			}
 			case 1:
 			{
-				int N = 10;
-				int M = 1;
-				_expected = 3;
-				_received = _obj.countPairs(N, M); break;
+				string colors = "RRRR";
+				_expected = 2;
+				_received = _obj.findMaximumMatching(colors); break;
 			}
 			case 2:
 			{
-				int N = 3;
-				int M = 8;
-				_expected = 5;
-				_received = _obj.countPairs(N, M); break;
+				string colors = "BBBBB";
+				_expected = 2;
+				_received = _obj.findMaximumMatching(colors); break;
 			}
-			
 			case 3:
 			{
-				int N = 100;
-				int M = 100;
-				_expected = 310;
-				_received = _obj.countPairs(N, M); break;
+				string colors = "RBRBRBRBR";
+				_expected = 4;
+				_received = _obj.findMaximumMatching(colors); break;
 			}
-			/*case 4:
+			case 4:
 			{
-				int N = ;
-				int M = ;
+				string colors = "RRRBRBRBRBRB";
+				_expected = 5;
+				_received = _obj.findMaximumMatching(colors); break;
+			}
+			case 5:
+			{
+				string colors = "R";
+				_expected = 0;
+				_received = _obj.findMaximumMatching(colors); break;
+			}
+			case 6:
+			{
+				string colors = "RBRRBBRB";
+				_expected = 3;
+				_received = _obj.findMaximumMatching(colors); break;
+			}
+			case 7:
+			{
+				string colors = "RBRBBRBRB";
+				_expected = 4;
+				_received = _obj.findMaximumMatching(colors); break;
+			}
+			/*case 8:
+			{
+				string colors = ;
 				_expected = ;
-				_received = _obj.countPairs(N, M); break;
+				_received = _obj.findMaximumMatching(colors); break;
 			}*/
-			/*case 5:
+			/*case 9:
 			{
-				int N = ;
-				int M = ;
+				string colors = ;
 				_expected = ;
-				_received = _obj.countPairs(N, M); break;
+				_received = _obj.findMaximumMatching(colors); break;
 			}*/
-			/*case 6:
+			/*case 10:
 			{
-				int N = ;
-				int M = ;
+				string colors = ;
 				_expected = ;
-				_received = _obj.countPairs(N, M); break;
+				_received = _obj.findMaximumMatching(colors); break;
 			}*/
 			default: return 0;
 		}

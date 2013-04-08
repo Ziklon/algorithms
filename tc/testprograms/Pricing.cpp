@@ -7,39 +7,38 @@
 #include <queue>
 #include <vector>
 #include <iostream>
-#include <algorithm>
-#include <sstream> 
+#include <algorithm> 
 using namespace std; 
 #define REP(i,n) for (int i = 0; i < (int)n; i++)
 #define FOR(i, a, b) for (int i = a; i <= b; i++)
 typedef long long ll;
+#define INF 1<<20
+int dp[55][5];
+vector<int> v;
 
-struct TheSquareRootDilemma {
-   int countPairs( int N, int M ) {
-		
+int go(int index, int group){
+	if(group>4)return -INF;
+	if(index>=v.size())return 0;
+	int& ref=dp[index][group];
+	if(ref!=-1)return ref;
+	ref=go(index+1,group);	
+	int sum=0;
+	for(int i=index;i<v.size();i++){
+		sum+=v[index];
+		ref=max(ref,sum+go(i+1,group+1));	
+	}	
+	return ref;
+	
+}
+
+struct Pricing {
+   int maxSales( vector <int> price ) {
 		int ans=0;
-		set<pair<int,int> >S;
-		for(int i=1;i<=N;i++)for(int j=1;j<=M;j++){
-			int aa=sqrt(i*j);
-			if(aa*aa==(i*j)){
-				S.insert(make_pair(i,j));
-			}
-		}
+		sort(price.begin(),price.end());
+		v=price;
+		memset(dp,-1,sizeof dp);
 		
-		
-		for(ll i=1;i*i<=100000000000LL;i++){
-			int ii=i*i;	
-			for(int j=1;j*j<=ii;j++){
-				if(ii%j==0){
-					int b=ii/j;
-					int mini=min(b,j);
-					int maxi=max(b,j);
-					if(mini<=M && maxi<=N)
-						ans++;
-				}
-			}
-		}
-		return ans;
+		return go(0,0);	
    }
 };
 
@@ -57,7 +56,7 @@ int main(int argc, char* argv[])
 {
 	if (argc == 1) 
 	{
-		cout << "Testing TheSquareRootDilemma (500.0 points)" << endl << endl;
+		cout << "Testing Pricing (1000.0 points)" << endl << endl;
 		for (int i = 0; i < 20; i++)
 		{
 			ostringstream s; s << argv[0] << " " << i;
@@ -65,71 +64,57 @@ int main(int argc, char* argv[])
 			if (exitCode)
 				cout << "#" << i << ": Runtime Error" << endl;
 		}
-		int T = time(NULL)-1358771427;
+		int T = time(NULL)-1358732755;
 		double PT = T/60.0, TT = 75.0;
 		cout.setf(ios::fixed,ios::floatfield);
 		cout.precision(2);
 		cout << endl;
 		cout << "Time  : " << T/60 << " minutes " << T%60 << " secs" << endl;
-		cout << "Score : " << 500.0*(.3+(.7*TT*TT)/(10.0*PT*PT+TT*TT)) << " points" << endl;
+		cout << "Score : " << 1000.0*(.3+(.7*TT*TT)/(10.0*PT*PT+TT*TT)) << " points" << endl;
 	}
 	else
 	{
 		int _tc; istringstream(argv[1]) >> _tc;
-		TheSquareRootDilemma _obj;
+		Pricing _obj;
 		int _expected, _received;
 		time_t _start = clock();
 		switch (_tc)
 		{
 			case 0:
 			{
-				int N = 2;
-				int M = 2;
-				_expected = 2;
-				_received = _obj.countPairs(N, M); break;
+				int price[] = {9,1,5,5,5,5,4,8,80};
+				_expected = 120;
+				_received = _obj.maxSales(vector <int>(price, price+sizeof(price)/sizeof(int))); break;
 			}
 			case 1:
 			{
-				int N = 10;
-				int M = 1;
-				_expected = 3;
-				_received = _obj.countPairs(N, M); break;
+				int price[] = {17,50,2};
+				_expected = 69;
+				_received = _obj.maxSales(vector <int>(price, price+sizeof(price)/sizeof(int))); break;
 			}
 			case 2:
 			{
-				int N = 3;
-				int M = 8;
-				_expected = 5;
-				_received = _obj.countPairs(N, M); break;
+				int price[] = {130,110,90,13,6,5,4,3,0};
+				_expected = 346;
+				_received = _obj.maxSales(vector <int>(price, price+sizeof(price)/sizeof(int))); break;
 			}
-			
-			case 3:
+			/*case 3:
 			{
-				int N = 100;
-				int M = 100;
-				_expected = 310;
-				_received = _obj.countPairs(N, M); break;
-			}
+				int price[] = ;
+				_expected = ;
+				_received = _obj.maxSales(vector <int>(price, price+sizeof(price)/sizeof(int))); break;
+			}*/
 			/*case 4:
 			{
-				int N = ;
-				int M = ;
+				int price[] = ;
 				_expected = ;
-				_received = _obj.countPairs(N, M); break;
+				_received = _obj.maxSales(vector <int>(price, price+sizeof(price)/sizeof(int))); break;
 			}*/
 			/*case 5:
 			{
-				int N = ;
-				int M = ;
+				int price[] = ;
 				_expected = ;
-				_received = _obj.countPairs(N, M); break;
-			}*/
-			/*case 6:
-			{
-				int N = ;
-				int M = ;
-				_expected = ;
-				_received = _obj.countPairs(N, M); break;
+				_received = _obj.maxSales(vector <int>(price, price+sizeof(price)/sizeof(int))); break;
 			}*/
 			default: return 0;
 		}
