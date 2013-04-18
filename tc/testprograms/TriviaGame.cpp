@@ -1,152 +1,167 @@
-#include <iostream> 
-#include <sstream> 
-#include <string> 
-#include <vector> 
-#include <deque> 
-#include <queue> 
-#include <set> 
-#include <map> 
-#include <algorithm> 
-#include <functional> 
-#include <utility> 
-#include <cmath> 
-#include <cstdlib> 
-#include <ctime>
-#include <cstring>
-using namespace std; 
-#define REP(i,n) for(int i=0;(i)<(int)(n);(i)++) 
-typedef long long ll; 
-int dp[50][10001],tokenNed;
-vector<int> points,bonus;
-int go(int idx, int bon){
-    if(idx>=points.size())return 0;
-    int& ref=dp[idx][bon];
-    if(ref!=-1)return ref;
-    ref=go(idx+1,bon)-points[idx];//wrong answer
-    if(bon+1==tokenNed)
-        ref=max(ref,go(idx+1,0)+points[idx]+bonus[idx]);
-    else 
-        ref=max(ref,go(idx+1,bon+1)+points[idx]);
-    return ref;
-}
-
-struct TriviaGame {
-   int maximumScore( vector <int> _points, int tokensNeeded, vector <int> _bonuses ) {
-        points=_points;
-        bonus=_bonuses;
-        tokenNed=tokensNeeded;
-        memset(dp,-1,sizeof dp);
-        return go(0,0);		
-   }
-};
-// BEGIN CUT HERE
-#include <ctime>
-#include <cmath>
-#include <string>
 #include <vector>
+#include <map>
+#include <set>
+#include <queue>
+#include <bitset>
+#include <algorithm>
 #include <sstream>
 #include <iostream>
-#include <algorithm>
+#include <cstdio>
+#include <cmath>
+#include <cstring>
+#include <ctime>
+#define sz size()
+#define REP(i,n) for (int i = 0; i < (int)n; i++)
+#define debug(v) cout<<#v<<" = "<<(v)<<endl;
+#define adebug(x,n) cout <<#x<<endl; REP(i,n)cout<<x[i]<<char(i+1==n?10:32)
+#define mdebug(x,m,n) cout <<#x<<endl; REP(i,m)REP(j,n)cout<<x[i][j]<<char(j+1==n?10:32)
 using namespace std;
+vector<int> points, bonuses;
+int tokensNeeded;
+int dp[50][51];
+bool seen[50][51];
+int g(int i, int nt) {
+	if(i == points.size()) return 0;
+	int& ref = dp[i][nt];
+	if(seen[i][nt]) return ref;
 
-int main(int argc, char* argv[])
-{
-	if (argc == 1) 
-	{
-		cout << "Testing TriviaGame (1000.0 points)" << endl << endl;
-		for (int i = 0; i < 20; i++)
-		{
-			ostringstream s; s << argv[0] << " " << i;
-			int exitCode = system(s.str().c_str());
-			if (exitCode)
-				cout << "#" << i << ": Runtime Error" << endl;
-		}
-		int T = time(NULL)-1366094807;
-		double PT = T/60.0, TT = 75.0;
-		cout.setf(ios::fixed,ios::floatfield);
-		cout.precision(2);
-		cout << endl;
-		cout << "Time  : " << T/60 << " minutes " << T%60 << " secs" << endl;
-		cout << "Score : " << 1000.0*(.3+(.7*TT*TT)/(10.0*PT*PT+TT*TT)) << " points" << endl;
+	if(nt + 1 == tokensNeeded) {
+		ref = bonuses[i] + g(i + 1, 0) + points[i];
+	} else {
+		ref = g(i + 1, nt + 1) + points[i];
 	}
-	else
-	{
-		int _tc; istringstream(argv[1]) >> _tc;
-		TriviaGame _obj;
-		int _expected, _received;
-		time_t _start = clock();
-		switch (_tc)
-		{
-			case 0:
-			{
-				int points[] = {1, 2, 3, 4, 5, 6};
-				int tokensNeeded = 3;
-				int bonuses[] = {4, 4, 4, 4, 4, 4};
-				_expected = 29;
-				_received = _obj.maximumScore(vector <int>(points, points+sizeof(points)/sizeof(int)), tokensNeeded, vector <int>(bonuses, bonuses+sizeof(bonuses)/sizeof(int))); break;
-			}
-			case 1:
-			{
-				int points[] = {1, 2, 3, 4, 5, 6};
-				int tokensNeeded = 3;
-				int bonuses[] = {1, 1, 1, 20, 1, 1};
-				_expected = 39;
-				_received = _obj.maximumScore(vector <int>(points, points+sizeof(points)/sizeof(int)), tokensNeeded, vector <int>(bonuses, bonuses+sizeof(bonuses)/sizeof(int))); break;
-			}
-			case 2:
-			{
-				int points[] = {150, 20, 30, 40, 50};
-				int tokensNeeded = 3;
-				int bonuses[] = {0, 0, 0, 250, 0};
-				_expected = 500;
-				_received = _obj.maximumScore(vector <int>(points, points+sizeof(points)/sizeof(int)), tokensNeeded, vector <int>(bonuses, bonuses+sizeof(bonuses)/sizeof(int))); break;
-			}
-			case 3:
-			{
-				int points[] = {500, 500, 500, 0, 500};
-				int tokensNeeded = 3;
-				int bonuses[] = {0, 0, 0, 500, 0};
-				_expected = 2000;
-				_received = _obj.maximumScore(vector <int>(points, points+sizeof(points)/sizeof(int)), tokensNeeded, vector <int>(bonuses, bonuses+sizeof(bonuses)/sizeof(int))); break;
-			}
-			/*case 4:
-			{
-				int points[] = ;
-				int tokensNeeded = ;
-				int bonuses[] = ;
-				_expected = ;
-				_received = _obj.maximumScore(vector <int>(points, points+sizeof(points)/sizeof(int)), tokensNeeded, vector <int>(bonuses, bonuses+sizeof(bonuses)/sizeof(int))); break;
-			}*/
-			/*case 5:
-			{
-				int points[] = ;
-				int tokensNeeded = ;
-				int bonuses[] = ;
-				_expected = ;
-				_received = _obj.maximumScore(vector <int>(points, points+sizeof(points)/sizeof(int)), tokensNeeded, vector <int>(bonuses, bonuses+sizeof(bonuses)/sizeof(int))); break;
-			}*/
-			/*case 6:
-			{
-				int points[] = ;
-				int tokensNeeded = ;
-				int bonuses[] = ;
-				_expected = ;
-				_received = _obj.maximumScore(vector <int>(points, points+sizeof(points)/sizeof(int)), tokensNeeded, vector <int>(bonuses, bonuses+sizeof(bonuses)/sizeof(int))); break;
-			}*/
-			default: return 0;
-		}
-		cout.setf(ios::fixed,ios::floatfield);
-		cout.precision(2);
-		double _elapsed = (double)(clock()-_start)/CLOCKS_PER_SEC;
-		if (_received == _expected)
-			cout << "#" << _tc << ": Passed (" << _elapsed << " secs)" << endl;
-		else
-		{
-			cout << "#" << _tc << ": Failed (" << _elapsed << " secs)" << endl;
-			cout << "           Expected: " << _expected << endl;
-			cout << "           Received: " << _received << endl;
-		}
-	}
+	ref = max(ref, g(i + 1, nt) - points[i]);
+	return ref;
 }
-
-// END CUT HERE
+class TriviaGame {
+public:int maximumScore(vector <int> _points, int _tokensNeeded, vector <int> _bonuses) {	
+		int ans;
+		points = _points;
+		bonuses = _bonuses;
+		tokensNeeded = _tokensNeeded;
+		memset(seen, 0, sizeof seen);
+		ans = g(0,0);
+		return ans;
+	}
+};
+// BEGIN KAWIGIEDIT TESTING
+// Generated by KawigiEdit 2.1.8 (beta) modified by pivanof
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+bool KawigiEdit_RunTest(int testNum, vector <int> p0, int p1, vector <int> p2, bool hasAnswer, int p3) {
+	cout << "Test " << testNum << ": [" << "{";
+	for (int i = 0; int(p0.size()) > i; ++i) {
+		if (i > 0) {
+			cout << ",";
+		}
+		cout << p0[i];
+	}
+	cout << "}" << "," << p1 << "," << "{";
+	for (int i = 0; int(p2.size()) > i; ++i) {
+		if (i > 0) {
+			cout << ",";
+		}
+		cout << p2[i];
+	}
+	cout << "}";
+	cout << "]" << endl;
+	TriviaGame *obj;
+	int answer;
+	obj = new TriviaGame();
+	clock_t startTime = clock();
+	answer = obj->maximumScore(p0, p1, p2);
+	clock_t endTime = clock();
+	delete obj;
+	bool res;
+	res = true;
+	cout << "Time: " << double(endTime - startTime) / CLOCKS_PER_SEC << " seconds" << endl;
+	if (hasAnswer) {
+		cout << "Desired answer:" << endl;
+		cout << "\t" << p3 << endl;
+	}
+	cout << "Your answer:" << endl;
+	cout << "\t" << answer << endl;
+	if (hasAnswer) {
+		res = answer == p3;
+	}
+	if (!res) {
+		cout << "DOESN'T MATCH!!!!" << endl;
+	} else if (double(endTime - startTime) / CLOCKS_PER_SEC >= 2) {
+		cout << "FAIL the timeout" << endl;
+		res = false;
+	} else if (hasAnswer) {
+		cout << "Match :-)" << endl;
+	} else {
+		cout << "OK, but is it right?" << endl;
+	}
+	cout << "" << endl;
+	return res;
+}
+int main() {
+	bool all_right;
+	all_right = true;
+	
+	vector <int> p0;
+	int p1;
+	vector <int> p2;
+	int p3;
+	
+	{
+	// ----- test 0 -----
+	int t0[] = {1,2,3,4,5,6};
+			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
+	p1 = 3;
+	int t2[] = {4,4,4,4,4,4};
+			p2.assign(t2, t2 + sizeof(t2) / sizeof(t2[0]));
+	p3 = 29;
+	all_right = KawigiEdit_RunTest(0, p0, p1, p2, true, p3) && all_right;
+	// ------------------
+	}
+	
+	{
+	// ----- test 1 -----
+	int t0[] = {1,2,3,4,5,6};
+			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
+	p1 = 3;
+	int t2[] = {1,1,1,20,1,1};
+			p2.assign(t2, t2 + sizeof(t2) / sizeof(t2[0]));
+	p3 = 39;
+	all_right = KawigiEdit_RunTest(1, p0, p1, p2, true, p3) && all_right;
+	// ------------------
+	}
+	
+	{
+	// ----- test 2 -----
+	int t0[] = {150,20,30,40,50};
+			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
+	p1 = 3;
+	int t2[] = {0,0,0,250,0};
+			p2.assign(t2, t2 + sizeof(t2) / sizeof(t2[0]));
+	p3 = 500;
+	all_right = KawigiEdit_RunTest(2, p0, p1, p2, true, p3) && all_right;
+	// ------------------
+	}
+	
+	{
+	// ----- test 3 -----
+	int t0[] = {500,500,500,0,500};
+			p0.assign(t0, t0 + sizeof(t0) / sizeof(t0[0]));
+	p1 = 3;
+	int t2[] = {0,0,0,500,0};
+			p2.assign(t2, t2 + sizeof(t2) / sizeof(t2[0]));
+	p3 = 2000;
+	all_right = KawigiEdit_RunTest(3, p0, p1, p2, true, p3) && all_right;
+	// ------------------
+	}
+	
+	if (all_right) {
+		cout << "You're a stud (at least on the example cases)!" << endl;
+	} else {
+		cout << "Some of the test cases had errors." << endl;
+	}
+	return 0;
+}
+// END KAWIGIEDIT TESTING
+//Powered by KawigiEdit 2.1.8 (beta) modified by pivanof!
