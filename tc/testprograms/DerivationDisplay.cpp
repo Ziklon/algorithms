@@ -17,37 +17,44 @@ using namespace std;
 #define REP(i,n) for(int i=0;(i)<(int)(n);(i)++) 
 typedef long long ll; 
 
-string tos(int n){
-    stringstream ss;
-    ss<<n;
-    return ss.str();
-}
-struct FractionSplit {
-   vector <string> getSum( int n, int d ) {
-        vector<string> ans;
-        int m=__gcd(n,d);
-        n/=m;
-        d/=m;
-		while(n>1){
-            int b=2;
-            while(1){
-               if(n*b>d){                  
-                  int m=__gcd(d,b);
-                  ans.push_back("1/"+tos(b));
-                  int dd=(d*b)/m;
-                  n=((dd/d)*n - (dd/b));
-                  d=dd;
-                  m=__gcd(n,d);
-                  n/=m;
-                  d/=m;
-                  break;                    
-               }
-               b++; 
+struct DerivationDisplay {
+   vector <string> getDerivation( string input ) {
+		vector<string> ans;
+		ans.push_back("S");
+		int N=input.size();
+		string suf="",pre="";
+		if(input[0]=='b' && input[N-1]=='a'){
+            REP(i,N-2){
+               pre+=input[i];
+               ans.push_back(pre+"Ua"); 
+            }            
+		}else{
+            int left=0,right=N-1;
+            ans.push_back("T");            
+            while(left<right && input[left]=='a' && input[right]=='b'){
+                pre+="a";
+                suf+="b";
+                ans.push_back(pre+"T"+suf);   
+                left++;
+                right--; 
             }
-            
+            if(input[left]=='a')
+               ans.push_back(pre+"A"+suf);
+            else
+                ans.push_back(pre+"B"+suf);
+            while(left<right){                
+                if(input[left]=='a'){
+                    pre+="a";
+                    ans.push_back(pre+"A"+suf);
+                }else{
+                    pre+="b";
+                    ans.push_back(pre+"B"+suf);
+                }
+                left++;    
+            }            
 		}
-		ans.push_back("1/"+tos(d));
-        return ans;
+		ans.push_back(input);
+		return ans;
    }
 };
 // BEGIN CUT HERE
@@ -64,7 +71,7 @@ int main(int argc, char* argv[])
 {
 	if (argc == 1) 
 	{
-		cout << "Testing FractionSplit (250.0 points)" << endl << endl;
+		cout << "Testing DerivationDisplay (1000.0 points)" << endl << endl;
 		for (int i = 0; i < 20; i++)
 		{
 			ostringstream s; s << argv[0] << " " << i;
@@ -72,85 +79,84 @@ int main(int argc, char* argv[])
 			if (exitCode)
 				cout << "#" << i << ": Runtime Error" << endl;
 		}
-		int T = time(NULL)-1367216660;
+		int T = time(NULL)-1367212713;
 		double PT = T/60.0, TT = 75.0;
 		cout.setf(ios::fixed,ios::floatfield);
 		cout.precision(2);
 		cout << endl;
 		cout << "Time  : " << T/60 << " minutes " << T%60 << " secs" << endl;
-		cout << "Score : " << 250.0*(.3+(.7*TT*TT)/(10.0*PT*PT+TT*TT)) << " points" << endl;
+		cout << "Score : " << 1000.0*(.3+(.7*TT*TT)/(10.0*PT*PT+TT*TT)) << " points" << endl;
 	}
 	else
 	{
 		int _tc; istringstream(argv[1]) >> _tc;
-		FractionSplit _obj;
+		DerivationDisplay _obj;
 		vector <string> _expected, _received;
 		time_t _start = clock();
 		switch (_tc)
 		{
 			case 0:
 			{
-				int n = 4;
-				int d = 5;
-				string __expected[] = {"1/2", "1/4", "1/20" };
+				string input = "aaabb";
+				string __expected[] = {"S", "T", "aTb", "aaTbb", "aaAbb", "aaabb" };
 				_expected = vector <string>(__expected, __expected+sizeof(__expected)/sizeof(string));
-				_received = _obj.getSum(n, d); break;
+				_received = _obj.getDerivation(input); break;
 			}
 			case 1:
 			{
-				int n = 2;
-				int d = 3;
-				string __expected[] = {"1/2", "1/6" };
+				string input = "bbba";
+				string __expected[] = {"S", "bUa", "bbUa", "bbba" };
 				_expected = vector <string>(__expected, __expected+sizeof(__expected)/sizeof(string));
-				_received = _obj.getSum(n, d); break;
+				_received = _obj.getDerivation(input); break;
 			}
 			case 2:
 			{
-				int n = 1;
-				int d = 2;
-				string __expected[] = {"1/2" };
+				string input = "baabba";
+				string __expected[] = {"S", "bUa", "baUa", "baaUa", "baabUa", "baabba" };
 				_expected = vector <string>(__expected, __expected+sizeof(__expected)/sizeof(string));
-				_received = _obj.getSum(n, d); break;
+				_received = _obj.getDerivation(input); break;
 			}
 			case 3:
 			{
-				int n = 15;
-				int d = 16;
-				string __expected[] = {"1/2", "1/3", "1/10", "1/240" };
+				string input = "a";
+				string __expected[] = {"S", "T", "A", "a" };
 				_expected = vector <string>(__expected, __expected+sizeof(__expected)/sizeof(string));
-				_received = _obj.getSum(n, d); break;
+				_received = _obj.getDerivation(input); break;
 			}
 			case 4:
 			{
-				int n = 14;
-				int d = 15;
-				string __expected[] = {"1/2", "1/3", "1/10" };
+				string input = "b";
+				string __expected[] = {"S", "T", "B", "b" };
 				_expected = vector <string>(__expected, __expected+sizeof(__expected)/sizeof(string));
-				_received = _obj.getSum(n, d); break;
+				_received = _obj.getDerivation(input); break;
 			}
-			/*case 5:
+			case 5:
 			{
-				int n = ;
-				int d = ;
-				string __expected[] = ;
+				string input = "aabbbbbbbb";
+				string __expected[] = {"S", "T", "aTb", "aaTbb", "aaBbb", "aabBbb", "aabbBbb", "aabbbBbb", "aabbbbBbb", "aabbbbbBbb", "aabbbbbbbb" };
 				_expected = vector <string>(__expected, __expected+sizeof(__expected)/sizeof(string));
-				_received = _obj.getSum(n, d); break;
-			}*/
+				_received = _obj.getDerivation(input); break;
+			}
 			/*case 6:
 			{
-				int n = ;
-				int d = ;
+				string input = ;
 				string __expected[] = ;
 				_expected = vector <string>(__expected, __expected+sizeof(__expected)/sizeof(string));
-				_received = _obj.getSum(n, d); break;
+				_received = _obj.getDerivation(input); break;
 			}*/
 			/*case 7:
 			{
-				int n = ;
-				int d = ;
+				string input = ;
 				string __expected[] = ;
 				_expected = vector <string>(__expected, __expected+sizeof(__expected)/sizeof(string));
-				_received = _obj.getSum(n, d); break;
+				_received = _obj.getDerivation(input); break;
+			}*/
+			/*case 8:
+			{
+				string input = ;
+				string __expected[] = ;
+				_expected = vector <string>(__expected, __expected+sizeof(__expected)/sizeof(string));
+				_received = _obj.getDerivation(input); break;
 			}*/
 			default: return 0;
 		}
