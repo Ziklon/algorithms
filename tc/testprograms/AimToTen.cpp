@@ -13,19 +13,22 @@
 #include <cstdlib> 
 #include <ctime>
 #include <cstring>
+#include <cassert>
 using namespace std; 
 #define REP(i,n) for(int i=0;(i)<(int)(n);(i)++) 
 #define FOREACH(i,c) for (typeof((c).end()) i = (c).begin(); i != (c).end(); ++i)
 typedef long long ll; 
 
-struct MagicSpell {
-   string fixTheSpell( string spell ) {
-		vector<char> v;
-		REP(i,spell.size())if(spell[i]=='A' || spell[i]=='Z')v.push_back(spell[i]);
-		reverse(v.begin(),v.end());
-		int j=0;
-		REP(i,spell.size())if(spell[i]=='A' || spell[i]=='Z')spell[i]=v[j++];
-		return spell;
+struct AimToTen {
+   int need( vector <int> marks ) {
+        int N=marks.size();
+		int sum=0;
+		REP(i,N)sum+=marks[i];
+		if(sum*10>=95*N)return 0;
+        int ans=(95*N)-10*sum;
+        //assert(ans%5==0);
+		return ans/5;
+		
    }
 };
 // BEGIN CUT HERE
@@ -42,7 +45,7 @@ int main(int argc, char* argv[])
 {
 	if (argc == 1) 
 	{
-		cout << "Testing MagicSpell (250.0 points)" << endl << endl;
+		cout << "Testing AimToTen (250.0 points)" << endl << endl;
 		for (int i = 0; i < 20; i++)
 		{
 			ostringstream s; s << argv[0] << " " << i;
@@ -50,7 +53,7 @@ int main(int argc, char* argv[])
 			if (exitCode)
 				cout << "#" << i << ": Runtime Error" << endl;
 		}
-		int T = time(NULL)-1367898233;
+		int T = time(NULL)-1367809420;
 		double PT = T/60.0, TT = 75.0;
 		cout.setf(ios::fixed,ios::floatfield);
 		cout.precision(2);
@@ -61,52 +64,56 @@ int main(int argc, char* argv[])
 	else
 	{
 		int _tc; istringstream(argv[1]) >> _tc;
-		MagicSpell _obj;
-		string _expected, _received;
+		AimToTen _obj;
+		int _expected, _received;
 		time_t _start = clock();
 		switch (_tc)
 		{
 			case 0:
 			{
-				string spell = "AZ";
-				_expected = "ZA";
-				_received = _obj.fixTheSpell(spell); break;
+				int marks[] = {9, 10, 10, 9};
+				_expected = 0;
+				_received = _obj.need(vector <int>(marks, marks+sizeof(marks)/sizeof(int))); break;
 			}
 			case 1:
 			{
-				string spell = "ABACADA";
-				_expected = "ABACADA";
-				_received = _obj.fixTheSpell(spell); break;
+				int marks[] = {8, 9};
+				_expected = 4;
+				_received = _obj.need(vector <int>(marks, marks+sizeof(marks)/sizeof(int))); break;
 			}
 			case 2:
 			{
-				string spell = "AABZCADZA";
-				_expected = "AZBACZDAA";
-				_received = _obj.fixTheSpell(spell); break;
+				int marks[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				               0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				               0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				               0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				               0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+				_expected = 950;
+				_received = _obj.need(vector <int>(marks, marks+sizeof(marks)/sizeof(int))); break;
 			}
 			case 3:
 			{
-				string spell = "AZBASGHNAZAHBNVZZGGGAGGZAZ";
-				_expected = "ZABZSGHNAZZHBNVAZGGGAGGAZA";
-				_received = _obj.fixTheSpell(spell); break;
+				int marks[] = {10, 10, 10, 10};
+				_expected = 0;
+				_received = _obj.need(vector <int>(marks, marks+sizeof(marks)/sizeof(int))); break;
 			}
 			/*case 4:
 			{
-				string spell = ;
+				int marks[] = ;
 				_expected = ;
-				_received = _obj.fixTheSpell(spell); break;
+				_received = _obj.need(vector <int>(marks, marks+sizeof(marks)/sizeof(int))); break;
 			}*/
 			/*case 5:
 			{
-				string spell = ;
+				int marks[] = ;
 				_expected = ;
-				_received = _obj.fixTheSpell(spell); break;
+				_received = _obj.need(vector <int>(marks, marks+sizeof(marks)/sizeof(int))); break;
 			}*/
 			/*case 6:
 			{
-				string spell = ;
+				int marks[] = ;
 				_expected = ;
-				_received = _obj.fixTheSpell(spell); break;
+				_received = _obj.need(vector <int>(marks, marks+sizeof(marks)/sizeof(int))); break;
 			}*/
 			default: return 0;
 		}
@@ -118,8 +125,8 @@ int main(int argc, char* argv[])
 		else
 		{
 			cout << "#" << _tc << ": Failed (" << _elapsed << " secs)" << endl;
-			cout << "           Expected: " << "\"" << _expected << "\"" << endl;
-			cout << "           Received: " << "\"" << _received << "\"" << endl;
+			cout << "           Expected: " << _expected << endl;
+			cout << "           Received: " << _received << endl;
 		}
 	}
 }

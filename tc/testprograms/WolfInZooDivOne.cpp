@@ -15,21 +15,11 @@
 #include <cstring>
 using namespace std; 
 #define REP(i,n) for(int i=0;(i)<(int)(n);(i)++) 
-#define FOREACH(i,c) for (typeof((c).end()) i = (c).begin(); i != (c).end(); ++i)
 typedef long long ll; 
 
-struct ProductOfDigits {
-   int smallestNumber( int N ) {
-       if(N==1)return 1;
-       int nd=0;
-       for(int i=9;i>=2;i--){
-            while(N%i==0){
-                nd++;
-                N/=i;
-            }
-       }
-       if(N>1)return -1;
-       return nd;     
+struct WolfInZooDivOne {
+   int count( int N, vector <string> L, vector <string> R ) {
+		
    }
 };
 // BEGIN CUT HERE
@@ -46,7 +36,7 @@ int main(int argc, char* argv[])
 {
 	if (argc == 1) 
 	{
-		cout << "Testing ProductOfDigits (500.0 points)" << endl << endl;
+		cout << "Testing WolfInZooDivOne (500.0 points)" << endl << endl;
 		for (int i = 0; i < 20; i++)
 		{
 			ostringstream s; s << argv[0] << " " << i;
@@ -54,7 +44,7 @@ int main(int argc, char* argv[])
 			if (exitCode)
 				cout << "#" << i << ": Runtime Error" << endl;
 		}
-		int T = time(NULL)-1367898779;
+		int T = time(NULL)-1367545904;
 		double PT = T/60.0, TT = 75.0;
 		cout.setf(ios::fixed,ios::floatfield);
 		cout.precision(2);
@@ -65,64 +55,66 @@ int main(int argc, char* argv[])
 	else
 	{
 		int _tc; istringstream(argv[1]) >> _tc;
-		ProductOfDigits _obj;
+		WolfInZooDivOne _obj;
 		int _expected, _received;
 		time_t _start = clock();
 		switch (_tc)
 		{
 			case 0:
 			{
-				int N = 1;
-				_expected = 1;
-				_received = _obj.smallestNumber(N); break;
+				int N = 5;
+				string L[] = {"0"};
+				string R[] = {"4"};
+				_expected = 16;
+				_received = _obj.count(N, vector <string>(L, L+sizeof(L)/sizeof(string)), vector <string>(R, R+sizeof(R)/sizeof(string))); break;
 			}
 			case 1:
 			{
-				int N = 10;
-				_expected = 2;
-				_received = _obj.smallestNumber(N); break;
+				int N = 5;
+				string L[] = {"0 1"};
+				string R[] = {"2 4"};
+				_expected = 21;
+				_received = _obj.count(N, vector <string>(L, L+sizeof(L)/sizeof(string)), vector <string>(R, R+sizeof(R)/sizeof(string))); break;
 			}
 			case 2:
 			{
-				int N = 26;
-				_expected = -1;
-				_received = _obj.smallestNumber(N); break;
+				int N = 10;
+				string L[] = {"0 4 2 7"};
+				string R[] = {"3 9 5 9"};
+				_expected = 225;
+				_received = _obj.count(N, vector <string>(L, L+sizeof(L)/sizeof(string)), vector <string>(R, R+sizeof(R)/sizeof(string))); break;
 			}
 			case 3:
 			{
 				int N = 100;
-				_expected = 3;
-				_received = _obj.smallestNumber(N); break;
+				string L[] = {"0 2 2 7 10 1","3 16 22 30 33 38"," 42 44 49 51 57 60 62"," 65 69 72 74 77 7","8 81 84 88 91 93 96"};
+				string R[] = {"41 5 13 22 12 13 ","33 41 80 47 40 ","4","8 96 57 66 ","80 60 71 79"," 70 77 ","99"," 83 85 93 88 89 97 97 98"};
+				_expected = 6419882;
+				_received = _obj.count(N, vector <string>(L, L+sizeof(L)/sizeof(string)), vector <string>(R, R+sizeof(R)/sizeof(string))); break;
 			}
-			case 4:
+			/*case 4:
 			{
-				int N = 2520;
-				_expected = 4;
-				_received = _obj.smallestNumber(N); break;
-			}
-			case 5:
+				int N = ;
+				string L[] = ;
+				string R[] = ;
+				_expected = ;
+				_received = _obj.count(N, vector <string>(L, L+sizeof(L)/sizeof(string)), vector <string>(R, R+sizeof(R)/sizeof(string))); break;
+			}*/
+			/*case 5:
 			{
-				int N = 864;
-				_expected = 4;
-				_received = _obj.smallestNumber(N); break;
-			}
+				int N = ;
+				string L[] = ;
+				string R[] = ;
+				_expected = ;
+				_received = _obj.count(N, vector <string>(L, L+sizeof(L)/sizeof(string)), vector <string>(R, R+sizeof(R)/sizeof(string))); break;
+			}*/
 			/*case 6:
 			{
 				int N = ;
+				string L[] = ;
+				string R[] = ;
 				_expected = ;
-				_received = _obj.smallestNumber(N); break;
-			}*/
-			/*case 7:
-			{
-				int N = ;
-				_expected = ;
-				_received = _obj.smallestNumber(N); break;
-			}*/
-			/*case 8:
-			{
-				int N = ;
-				_expected = ;
-				_received = _obj.smallestNumber(N); break;
+				_received = _obj.count(N, vector <string>(L, L+sizeof(L)/sizeof(string)), vector <string>(R, R+sizeof(R)/sizeof(string))); break;
 			}*/
 			default: return 0;
 		}
