@@ -58,9 +58,7 @@ int main(){
 		if(V!=-1)printf("The jumping champion is %d\n",V);
 		else printf("No jumping champion\n");
 		
-	}
-	
-	
+	}	
 	//fprintf(stderr, "time=%.3lfsec\n", 0.001 * (clock() - start));
 	return 0;
 }
