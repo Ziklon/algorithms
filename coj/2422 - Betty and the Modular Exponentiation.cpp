@@ -18,7 +18,7 @@ ll exp_mod(ll a, ll b){
     return ans;
 }
 int T;
-ll a,b;
+ll a,b;  
 int main(){
    #ifdef LocalHost
       freopen("input.txt","r",stdin);
