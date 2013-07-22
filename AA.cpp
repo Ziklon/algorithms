@@ -20,8 +20,7 @@ int calc(int u, int v){
     for(int i=u;i!=v;i=(i+1)%N)ans+=A[i];
     return ans;
 }
-
-
+//esto es un commentario
 int main(){
    #ifdef LocalHost
 		freopen("D:/input.txt","r",stdin);
