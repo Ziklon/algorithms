@@ -1,168 +1,147 @@
+#include <iostream>  
+#include <sstream>
 #include <vector>
-#include <list>
-#include <map>
-#include <set>
-#include <queue>
-#include <deque>
-#include <stack>
-#include <bitset>
-#include <algorithm>
-#include <functional>
-#include <numeric>
-#include <utility>
+#include <cstdio>  
+#include <set>  
+#include <map>  
+#include <algorithm> 
+#include <cmath> 
+#include <cstring> 
+using namespace std;  
+#define REP(i,n) for(int i=0;(i)<(int)(n);(i)++)  
+typedef long long ll;
+
+int find_index(vector<string> &v,  string &s){
+    for(int i=0;i<v.size();i++)if(v[i]==s)return i;
+    return -1;
+}
+struct HuffmanDecoding {
+	string decode(string archive, vector <string> dictionary) {
+		string ans;
+		int N=archive.size();
+		//sort(dictionary.begin(),dictionary.end());
+		int last = -1;
+		for(int i=0;i<N;i++){
+            string tmp = archive.substr(last+1,i-last);
+            
+            int idx =find_index(dictionary,tmp);
+            if(idx!=-1){
+                ans+=string(1,'A'+idx);
+                last=i;
+            }
+            
+		}		
+		return ans;
+	}
+};
+// BEGIN CUT HERE
+#include <ctime>
+#include <cmath>
+#include <string>
+#include <vector>
 #include <sstream>
 #include <iostream>
-#include <iomanip>
-#include <cstdio>
-#include <cmath>
-#include <cstdlib>
-#include <ctime>
-#include <cstring>
-#define all(v) (v).begin(),(v).end()
-#define rall(v) (v).rbegin(),(v).rend()
-#define sz size()
-#define pb push_back
-#define mp make_pair
-#define mem(x,i) memset(x,i,sizeof(x))
-#define cpresent(V,e) (find(all(V),(e))!=(V).end())
-#define foreach(c,it) for(__typeof((c).begin()) it=(c).begin();it!=(c).end();it++)
-#define f(i,n) for(int (i)=0;i<(int)(n);(i)++)
+#include <algorithm>
 using namespace std;
-long long toi(string s){istringstream is(s);long long x;is>>x;return x;}
-string tos(long long t){stringstream st; st<<t;return st.str();}
-long long gcd(long long a, long long b){return __gcd(a,b);}
-long long lcm(long long a,long long b){return a*(b/gcd(a,b));}
 
-class HuffmanDecoding {
-public:string decode(string archive, vector <string> dic) {	
-		string dev="";
-		int p=0;
-		while(p<archive.sz){
-			int n=1;
-			while(p+n<=archive.sz && !cpresent(dic,archive.substr(p,n))){
-				n++;
+int main(int argc, char* argv[])
+{
+	if (argc == 1) 
+	{
+		cout << "Testing HuffmanDecoding (450.0 points)" << endl << endl;
+		for (int i = 0; i < 20; i++)
+		{
+			ostringstream s; s << argv[0] << " " << i;
+			int exitCode = system(s.str().c_str());
+			if (exitCode)
+				cout << "#" << i << ": Runtime Error" << endl;
+		}
+		int T = time(NULL)-1391523788;
+		double PT = T/60.0, TT = 75.0;
+		cout.setf(ios::fixed,ios::floatfield);
+		cout.precision(2);
+		cout << endl;
+		cout << "Time  : " << T/60 << " minutes " << T%60 << " secs" << endl;
+		cout << "Score : " << 450.0*(.3+(.7*TT*TT)/(10.0*PT*PT+TT*TT)) << " points" << endl;
+	}
+	else
+	{
+		int _tc; istringstream(argv[1]) >> _tc;
+		HuffmanDecoding _obj;
+		string _expected, _received;
+		time_t _start = clock();
+		switch (_tc)
+		{
+			case 0:
+			{
+				string archive = "101101";
+				string dictionary[] = {"00","10","01","11"};
+				_expected = "BDC";
+				_received = _obj.decode(archive, vector <string>(dictionary, dictionary+sizeof(dictionary)/sizeof(string))); break;
 			}
-			string aux=archive.substr(p,n);
-			//cout<<p<<" "<<n<<endl;
-			for(int i=0;i<dic.sz;i++)
-				if(dic[i]==aux){
-					dev+='A'+i;
-					break;
-				}
-		   p+=n;
+			case 1:
+			{
+				string archive = "10111010";
+				string dictionary[] = {"0","111","10"};
+				_expected = "CBAC";
+				_received = _obj.decode(archive, vector <string>(dictionary, dictionary+sizeof(dictionary)/sizeof(string))); break;
+			}
+			case 2:
+			{
+				string archive = "0001001100100111001";
+				string dictionary[] = {"1","0"};
+				_expected = "BBBABBAABBABBAAABBA";
+				_received = _obj.decode(archive, vector <string>(dictionary, dictionary+sizeof(dictionary)/sizeof(string))); break;
+			}
+			case 3:
+			{
+				string archive = "111011011000100110";
+				string dictionary[] = {"010","00","0110","0111","11","100","101"};
+				_expected = "EGGFAC";
+				_received = _obj.decode(archive, vector <string>(dictionary, dictionary+sizeof(dictionary)/sizeof(string))); break;
+			}
+			case 4:
+			{
+				string archive = "001101100101100110111101011001011001010";
+				string dictionary[] = {"110","011","10","0011","00011","111","00010","0010","010","0000"};
+				_expected = "DBHABBACAIAIC";
+				_received = _obj.decode(archive, vector <string>(dictionary, dictionary+sizeof(dictionary)/sizeof(string))); break;
+			}
+			/*case 5:
+			{
+				string archive = ;
+				string dictionary[] = ;
+				_expected = ;
+				_received = _obj.decode(archive, vector <string>(dictionary, dictionary+sizeof(dictionary)/sizeof(string))); break;
+			}*/
+			/*case 6:
+			{
+				string archive = ;
+				string dictionary[] = ;
+				_expected = ;
+				_received = _obj.decode(archive, vector <string>(dictionary, dictionary+sizeof(dictionary)/sizeof(string))); break;
+			}*/
+			/*case 7:
+			{
+				string archive = ;
+				string dictionary[] = ;
+				_expected = ;
+				_received = _obj.decode(archive, vector <string>(dictionary, dictionary+sizeof(dictionary)/sizeof(string))); break;
+			}*/
+			default: return 0;
 		}
-		return dev;		
-	}
-	//Powered by [Ziklon]
-};
-// BEGIN KAWIGIEDIT TESTING
-// Generated by KawigiEdit 2.1.4 (beta) modified by pivanof
-bool KawigiEdit_RunTest(int testNum, string p0, vector <string> p1, bool hasAnswer, string p2) {
-	cout << "Test " << testNum << ": [" << "\"" << p0 << "\"" << "," << "{";
-	for (int i = 0; int(p1.size()) > i; ++i) {
-		if (i > 0) {
-			cout << ",";
+		cout.setf(ios::fixed,ios::floatfield);
+		cout.precision(2);
+		double _elapsed = (double)(clock()-_start)/CLOCKS_PER_SEC;
+		if (_received == _expected)
+			cout << "#" << _tc << ": Passed (" << _elapsed << " secs)" << endl;
+		else
+		{
+			cout << "#" << _tc << ": Failed (" << _elapsed << " secs)" << endl;
+			cout << "           Expected: " << "\"" << _expected << "\"" << endl;
+			cout << "           Received: " << "\"" << _received << "\"" << endl;
 		}
-		cout << "\"" << p1[i] << "\"";
 	}
-	cout << "}";
-	cout << "]" << endl;
-	HuffmanDecoding *obj;
-	string answer;
-	obj = new HuffmanDecoding();
-	clock_t startTime = clock();
-	answer = obj->decode(p0, p1);
-	clock_t endTime = clock();
-	delete obj;
-	bool res;
-	res = true;
-	cout << "Time: " << double(endTime - startTime) / CLOCKS_PER_SEC << " seconds" << endl;
-	if (hasAnswer) {
-		cout << "Desired answer:" << endl;
-		cout << "\t" << "\"" << p2 << "\"" << endl;
-	}
-	cout << "Your answer:" << endl;
-	cout << "\t" << "\"" << answer << "\"" << endl;
-	if (hasAnswer) {
-		res = answer == p2;
-	}
-	if (!res) {
-		cout << "DOESN'T MATCH!!!!" << endl;
-	} else if (double(endTime - startTime) / CLOCKS_PER_SEC >= 2) {
-		cout << "FAIL the timeout" << endl;
-		res = false;
-	} else if (hasAnswer) {
-		cout << "Match :-)" << endl;
-	} else {
-		cout << "OK, but is it right?" << endl;
-	}
-	cout << "" << endl;
-	return res;
 }
-int main() {
-	bool all_right;
-	all_right = true;
-	
-	string p0;
-	vector <string> p1;
-	string p2;
-	
-	{
-	// ----- test 0 -----
-	p0 = "101101";
-	string t1[] = {"00","10","01","11"};
-			p1.assign(t1, t1 + sizeof(t1) / sizeof(t1[0]));
-	p2 = "BDC";
-	all_right = KawigiEdit_RunTest(0, p0, p1, true, p2) && all_right;
-	// ------------------
-	}
-	
-	{
-	// ----- test 1 -----
-	p0 = "10111010";
-	string t1[] = {"0","111","10"};
-			p1.assign(t1, t1 + sizeof(t1) / sizeof(t1[0]));
-	p2 = "CBAC";
-	all_right = KawigiEdit_RunTest(1, p0, p1, true, p2) && all_right;
-	// ------------------
-	}
-	
-	{
-	// ----- test 2 -----
-	p0 = "0001001100100111001";
-	string t1[] = {"1","0"};
-			p1.assign(t1, t1 + sizeof(t1) / sizeof(t1[0]));
-	p2 = "BBBABBAABBABBAAABBA";
-	all_right = KawigiEdit_RunTest(2, p0, p1, true, p2) && all_right;
-	// ------------------
-	}
-	
-	{
-	// ----- test 3 -----
-	p0 = "111011011000100110";
-	string t1[] = {"010","00","0110","0111","11","100","101"};
-			p1.assign(t1, t1 + sizeof(t1) / sizeof(t1[0]));
-	p2 = "EGGFAC";
-	all_right = KawigiEdit_RunTest(3, p0, p1, true, p2) && all_right;
-	// ------------------
-	}
-	
-	{
-	// ----- test 4 -----
-	p0 = "001101100101100110111101011001011001010";
-	string t1[] = {"110","011","10","0011","00011","111","00010","0010","010","0000"};
-			p1.assign(t1, t1 + sizeof(t1) / sizeof(t1[0]));
-	p2 = "DBHABBACAIAIC";
-	all_right = KawigiEdit_RunTest(4, p0, p1, true, p2) && all_right;
-	// ------------------
-	}
-	
-	if (all_right) {
-		cout << "You're a stud (at least on the example cases)!" << endl;
-	} else {
-		cout << "Some of the test cases had errors." << endl;
-	}
-	return 0;
-}
-// END KAWIGIEDIT TESTING
-//Powered by KawigiEdit 2.1.4 (beta) modified by pivanof!
+
+//END CUT HERE
