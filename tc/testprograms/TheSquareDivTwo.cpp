@@ -1,27 +1,22 @@
-#include <cmath>
-#include <ctime>
-#include <iostream>
-#include <vector>
 #include <sstream>
-#include <cstring>
-#include <algorithm>
-#include <map>
-#include <set>
-
+#include <iostream> 
+#include <vector>  
+#include <queue>  
+#include <set>  
+#include <map>  
+#include <algorithm> 
+#include <cmath>  
+#include <cstdlib>  
+#include <cstring> 
 using namespace std;
-int R[60]={};
+typedef long long ll;
+
 struct TheSquareDivTwo {
-   vector <string> solve( vector <string> board ) {
-	   int n=board.size();
-	   for(int i=0;i<n;i++)for(int j=0;j<n;j++)if(board[i][j]=='C')R[i]++;
-	   vector<string> ans=board;
-	   for(int i=0;i<n;i++)for(int j=0;j<n;j++)
-		   	if(i>=n-R[j])ans[i][j]='C'; 
-			else ans[i][j]='.';	   
-	   return ans;
-   }
+    vector <string> solve(vector <string> board) {
+    
+    }
 };
-//BEGIN CUT HERE
+// BEGIN CUT HERE
 #include <ctime>
 #include <cmath>
 #include <string>
@@ -43,7 +38,7 @@ int main(int argc, char* argv[])
 			if (exitCode)
 				cout << "#" << i << ": Runtime Error" << endl;
 		}
-		int T = time(NULL)-1356517513;
+		int T = time(NULL)-1392685441;
 		double PT = T/60.0, TT = 75.0;
 		cout.setf(ios::fixed,ios::floatfield);
 		cout.precision(2);
@@ -179,4 +174,4 @@ int main(int argc, char* argv[])
 	}
 }
 
-//END CUT HERE
+// END CUT HERE
