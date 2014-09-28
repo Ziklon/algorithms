@@ -44,6 +44,7 @@ long long go(int n){
 }
 
 void solve(){
+    
 	scanf("%d",&N);
 	cout<<go(N)<<endl;
 }

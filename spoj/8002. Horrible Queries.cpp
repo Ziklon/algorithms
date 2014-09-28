@@ -1,7 +1,5 @@
-#include <cstdio>
-#include <iostream>
-#include <algorithm>
-#include <cstring>
+#include <bits/stdc++.h>
+#define all(v)  v.begin() , v.end()
 
 using namespace std;
 typedef long long ll;
@@ -52,27 +50,34 @@ void update(int node, int l, int r, int x, int y, int val){
     }
 }
 
-int N,M,p,q,v,C,Z;
+int N, Q, x, y, seq[MAXN];
+
+ll sum[MAXN];
 
 int main(){
     #ifdef LocalHost
 		freopen("D:/input.txt","r",stdin);
     #endif
-    scanf("%d",&M);
-    for(int i=0;i<M;i++){
-        scanf("%d %d",&N,&C);
-        memset(tree,0,sizeof tree);
-        memset(lazy,0,sizeof lazy);
-        for(int j=0;j<C;j++){
-            scanf("%d",&Z);
-            if(Z==0){
-                scanf("%d %d %d",&p,&q,&v);
-                update(0,0,N-1,p-1,q-1,v);
-            }else{
-                scanf("%d %d",&p,&q);
-                printf("%lld\n",query(0,0,N-1,p-1,q-1));
-            }            
-        }        
+   freopen("input", "r", stdin);
+    //memset(tree,0,sizeof tree);
+    //memset(lazy,0,sizeof lazy);
+
+    cin >> N >> Q;
+    for(int i = 0; i < N; ++i)cin >> seq[i];
+
+    sort(seq, seq + N);
+
+    for(int i = 0; i < Q; ++i) {
+        cin >> x >> y;
+        update(0, 0, N - 1, x - 1, y - 1, 1LL);
     }
+
+    for(int i = 0; i < N; ++i) sum[i] = query(0, 0, N - 1, i, i);
+
+    sort(sum, sum + N);
+
+    ll ans = 0;
+    for(int i = 0; i < N; ++i) ans += ((sum[i]) * seq[i]);
+    cout << ans << endl;
     return 0;
 }
