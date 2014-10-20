@@ -3,78 +3,81 @@
 using namespace std;
 typedef long long ll;
 
-#define MAXN 30005
+#define MAXN 30010
 
+char s[MAXN];
+
+#define mvLeft(node) 2*node + 1
+#define mvRight(node) 2*node + 2
 
 struct node {
-    int sum, mini,val;
-    node() {}
-    node(int _sum, int _mini, int _val) {
-        sum = _sum;
-        mini = _mini;
-        val  = _val;
+    int need_open;
+    int need_close;
+    node() {
+        need_open = need_close=0;
+    }
+    node(int _open, int _close) {
+        need_open = _open;
+        need_close = _close;
     }
 
-} tree[MAXN];
+} tree[4 * MAXN];
 
 
-ll query(int node, int l, int r, int x, int y) {
-
-    push(node, l, r);
-
-    if(r < x || l > y) return 0;
-    ll ans = 0;
-    if( x <= l && r <= y)ans += tree[node];
-    else {
-        int mid  = (l + r) >> 1;
-        ans += query(2 * node + 1, l, mid, x, y);
-        ans += query(2 * node + 2, mid + 1, r, x, y);
-        pull(node);
-    }
-    return ans;
-}
-
-void update(int node, int l, int r, int x, int delta) {
-    push(node, l, r);
-    if(r < x || l > y) return;
-
-
-    if(l == r && r == x) {
-        tree[node].val= delta;
-        tree[node].sum = delta;
-        tree[node].mini = delta;                
+void init_tree(int pnode, int l, int r) {
+    if(l == r) { // leaft nodes
+        if(s[l] == '(') tree[pnode] = node(0, 1);
+        else tree[pnode] = node(1, 0);
     } else {
-        int mid  = (l + r) >> 1;
-        update(2 * node + 1, l, mid, x, y, delta);
-        update(2 * node + 2, mid + 1, r, x, y, delta);
-        pull(node);
+        int mid = (l + r) >> 1;
+        init_tree(mvLeft(pnode) , l, mid);
+        init_tree(mvRight(pnode) , mid + 1, r);
+        int closing = min(tree[mvLeft(pnode)].need_close, tree[mvRight(pnode)].need_open);
+        tree[pnode].need_close = tree[mvLeft(pnode)].need_close + tree[mvRight(pnode)].need_close - closing;
+        tree[pnode].need_open = tree[mvLeft(pnode)].need_open + tree[mvRight(pnode)].need_open - closing;
     }
-
 }
 
-int N, Q, x, y, seq[MAXN];
+void update(int pnode, int l, int r, int idx) {
+    if(l == r) {
+        if(s[idx] == '(') {
+            tree[pnode]=node(1,0);
+            s[idx] = ')';
+        } else {
+            tree[pnode]=node(0,1);
+            s[idx] = '(';
+        }
+    } else {
+        int mid = (l + r) >> 1;
+        if(idx <= mid)update(mvLeft(pnode), l, mid, idx);
+        else update(mvRight(pnode), mid + 1, r, idx);
+        int closing = min(tree[mvLeft(pnode)].need_close, tree[mvRight(pnode)].need_open);
+        tree[pnode].need_close = tree[mvLeft(pnode)].need_close + tree[mvRight(pnode)].need_close - closing;
+        tree[pnode].need_open = tree[mvLeft(pnode)].need_open + tree[mvRight(pnode)].need_open - closing;
+    }
+}
 
-ll sum[MAXN];
+
+
 
 int main() {
-
-    cin >> N >> Q;
-    for(int i = 0; i < N; ++i)cin >> seq[i];
-
-    sort(seq, seq + N);
-
-    for(int i = 0; i < Q; ++i) {
-        cin >> x >> y;
-        update(0, 0, N - 1, x - 1, y - 1, 1);
+    //freopen("input", "r", stdin);
+    int n, q, t;
+    for(int te = 1; te <= 10; ++te) {
+        printf("Test %d:\n", te);
+        scanf("%d", &n);
+        scanf("%s", s);
+        scanf("%d", &q);
+        init_tree(0, 0, n - 1);        
+        for(int i = 0; i < q; ++i) {
+            scanf("%d", &t);
+            if(t == 0) {
+                if(tree[0].need_close == 0 && tree[0].need_open == 0)printf("YES\n");                
+                else printf("NO\n");
+            } else {
+                update(0, 0, n - 1, t - 1);
+            }
+        }
     }
-
-    for(int i = 0; i < N; ++i)sum[i] = query(0, 0, N - 1, i, i);
-
-    sort(sum, sum + N);
-    ll ans = 0;
-    for(int i = 0; i < N; ++i)ans += (sum[i] * seq[i]);
-
-    cout << ans << endl;
-
     return 0;
 }
